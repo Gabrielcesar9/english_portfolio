@@ -7,6 +7,7 @@
     <!-- =====BOX ICONS===== -->
     <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
     <title>Portfolio Website - CodeCraftedWeb</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
     <!--===== HEADER =====-->
@@ -187,53 +188,56 @@
         <!--===== CONTACT =====-->
         <section class="contact section" id="contact">
             <h2 class="section-title">Contato</h2>
-            <div style="text-align: center;"><span class="skills__name"><b>Agende uma aula experimental</b></span></div>
 
             <div class="contact__container bd-grid">
-                <form onsubmit="sendEmail(); reset(); return false"class="contact__form">
-                    <input type="text" id="name" placeholder="Name" class="contact__input">
+                <form>
+                    <input type="text" id="name" placeholder="Nome" class="contact__input">
                     <input id="email" type="mail" placeholder="Email" class="contact__input">
                     <textarea name="" id="message" cols="0" rows="10" class="contact__input"></textarea>
-                    <button  class="contact__button button" type="submit">Send</button>
                 </form>
+                <button class="contact__button button" onclick="sendMessage()">Enviar</button>
             </div>
         </section>
     </main>
 
     <!--===== FOOTER =====-->
     <footer class="footer">
-        <p class="footer__title">Marlon</p>
+        <p class="footer__title">Gabriel</p>
         <div class="footer__social">
-            <a href="#" class="footer__icon"><i class='bx bxl-facebook' ></i></a>
-            <a href="#" class="footer__icon"><i class='bx bxl-instagram' ></i></a>
-            <a href="#" class="footer__icon"><i class='bx bxl-twitter' ></i></a>
+            <a href="https://www.linkedin.com/in/gabriel-c%C3%A9sar-3ab385298/" class="footer__icon" target="_blank"><i class='bx bxl-linkedin' ></i></a>
+            <a href="https://www.instagram.com/gabriel_ce9/?hl=en" class="footer__icon" target="_blank"><i class='bx bxl-instagram' ></i></a>
+            <a href="https://twitter.com/Monode98" class="footer__icon" target="_blank"><i class='bx bxl-twitter' ></i></a>
         </div>
-        <p class="footer__copy">&#169; CodeCraftedWeb. All rights reserved</p>
+        <p class="footer__copy">CNPJ: 41.048.782/0001-16</p>
     </footer>
-
 
     <!--===== SCROLL REVEAL =====-->
     <script src="https://unpkg.com/scrollreveal"></script>
 
     <!--===== MAIN JS =====-->
     <script src="script.js"></script>
-    <script src="https://smtpjs.com/v3/smtp.js"></script>
     <script>
-        function sendEmail(){
-            console.log('this function is running')
-            Email.send({
-                Host:"smtp.elasticemail.com",
-                Username:"naotemproblemaquimica@gmail.com",
-                Password: "Facaelevar@98",
-                To: 'gabriel.cesar.pereira.9@gmail.com',
-                From: "naotemproblemaquimica@gmail.com",
-                Subject: "New Contact From Enquiry",
-                Body: "Name: " + document.getElementById("name").value
-                + "<br> Email: " + document.getElementById("email").value
-                + "<br> Message: " + document.getElementById("message").value
-            }).then(
-                message => alert("message")
-                );
+        function sendMessage(){
+            
+            console.log('it was sent');
+            (function (){
+                emailjs.init("nqdj2FHfQYiVIXDQ7");
+            })();
+
+            var serviceID = "service_mlk9j8d";
+            var templateID = "template_8vb44dl";
+
+            var params = {
+                sendername: document.getElementById("name").value,
+                senderemail: document.getElementById("email").value,
+                subject: "Contato pela page",
+                message: document.getElementById("message").value,
+            };
+            emailjs.send(serviceID, templateID, params).then(res=>{
+                alert('Thank you for the email');
+                location.reload();
+            }).catch();
+            return false;
         }
     </script>
 </body>
